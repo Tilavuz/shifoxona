@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
-import { list } from "./list";
 import { useCookies } from "react-cookie";
 import { useContext } from "react";
 import { UserContext } from "@/context/user-context";
@@ -12,23 +11,12 @@ export default function Header() {
   const context = useContext(UserContext);
 
   return (
-    <header className="py-4">
+    <header className="py-4 border-b">
       <div className="container">
         <nav className="flex items-center justify-between">
           <div>
-            <Link className="font-bold text-3xl" to="/">
-              Hospital
-            </Link>
+            
           </div>
-          <ul className="flex gap-2 items-center">
-            {list.map((item) => {
-              return (
-                <li key={item.title}>
-                  <Link to={item.link}>{item.title}</Link>
-                </li>
-              );
-            })}
-          </ul>
           {cookies?.token && context?.user ? (
             <ProfileSheet />
           ) : (
