@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { RouterProvider, createBrowserRouter } from "react-router-dom"
+import RootLayout from "./layouts/root-layout"
+import { Suspense, lazy } from "react"
+import LoaderComp from "./components/loader/loader"
 
-function App() {
-  const [count, setCount] = useState(0)
+// Pages
+import Department from "./pages/home/department"
+const ErrorPage = lazy(() => import('@/pages/error/error'))
+const Login = lazy(() => import('@/pages/login/login'))
+const Register = lazy(() => import('@/pages/register/register'))
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+export default function App() {
+
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <RootLayout />,
+      errorElement: (
+        <Suspense fallback={<LoaderComp />}>
+          <ErrorPage />
+        </Suspense>
+      ),
+      children: [
+        {
+          index: true,
+          element: <Department />
+        },
+        {
+          path: '/login',
+          element: (
+            <Suspense fallback={<LoaderComp />}>
+              <Login />
+            </Suspense>
+          )
+        },
+        {
+          path: '/register',
+          element: (
+            <Suspense fallback={<LoaderComp />}>
+              <Register />
+            </Suspense>
+          )
+        }
+      ]
+    }
+  ])
+
+  return <RouterProvider router={router} />
 }
-
-export default App
