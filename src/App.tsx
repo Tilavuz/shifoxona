@@ -6,6 +6,7 @@ import LoaderComp from "./components/loader/loader"
 // Pages
 import Home from "./pages/home/home"
 const Room = lazy(() => import("./pages/room/room")) 
+const Doctors = lazy(() => import("./pages/doctors/doctors")) 
 const Spec = lazy(() => import("./pages/spec/spec")) 
 const Department = lazy(() => import("./pages/department/department"))
 const ErrorPage = lazy(() => import('@/pages/error/error'))
@@ -49,6 +50,14 @@ export default function App() {
           element: (
             <Suspense fallback={<LoaderComp />}>
               <Spec />
+            </Suspense>
+          )
+        },
+        {
+          path: '/doctors',
+          element: (
+            <Suspense fallback={<LoaderComp />}>
+              <Doctors />
             </Suspense>
           )
         },

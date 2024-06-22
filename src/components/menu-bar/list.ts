@@ -14,5 +14,9 @@ export const list = [
     {
         link: '/spec',
         title: 'Spec'
+    },
+    {
+        link: '/doctors',
+        title: 'Doctors'
     }
 ]

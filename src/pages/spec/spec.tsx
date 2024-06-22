@@ -17,12 +17,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import UseGetSpec from "@/hooks/use-get-spec";
 import useLoading from "@/hooks/use-loading";
-import { SpecInterface } from "@/interface/spec";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import axios from "axios";
 import { Pencil, Plus, Trash2 } from "lucide-react";
-import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef } from "react";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 const apiUrl = import.meta.env.VITE_APP_API_URL;
@@ -30,22 +30,9 @@ const apiUrl = import.meta.env.VITE_APP_API_URL;
 export default function Spec() {
   const [cookies] = useCookies();
   const specRef = useRef<HTMLInputElement>(null);
-  const [specs, seSpecs] = useState<SpecInterface[]>([]);
+  const {specs, getAllSpec} = UseGetSpec()
   const edtSprecRef = useRef<HTMLInputElement>(null);
   const { isPending, loading } = useLoading();
-
-  const geAllSprec = useCallback(async () => {
-    try {
-      const res = await axios.get(`${apiUrl}spec`, {
-        headers: {
-          Authorization: `Bearer ${cookies?.token}`,
-        },
-      });
-      seSpecs(res.data);
-    } catch (error) {
-      console.error("Error fetching specs:", error);
-    }
-  }, [cookies?.token]);
 
   const adSprec = async (e: FormEvent) => {
     e.preventDefault();
@@ -61,7 +48,7 @@ export default function Spec() {
           },
         }
       );
-      geAllSprec();
+      getAllSpec();
     } catch (err) {
       console.log(err);
     }
@@ -74,7 +61,7 @@ export default function Spec() {
           Authorization: `Bearer ${cookies?.token}`,
         },
       });
-      geAllSprec();
+      getAllSpec();
     } catch (err) {
       console.log(err);
     }
@@ -92,7 +79,7 @@ export default function Spec() {
           Authorization: `Bearer ${cookies?.token}`,
         },
       });
-      geAllSprec();
+      getAllSpec();
     } catch (err) {
       console.log(err);
     } finally {
@@ -101,8 +88,8 @@ export default function Spec() {
   };
 
   useEffect(() => {
-    geAllSprec();
-  }, [geAllSprec]);
+    getAllSpec();
+  }, [getAllSpec]);
 
   return (
     <div className="">
