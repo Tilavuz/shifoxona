@@ -118,7 +118,7 @@ export default function Doctors() {
         region: regionRef?.current?.value,
         district: districtRef?.current?.value,
         education: educationRef?.current?.value,
-        family: numberFRef?.current?.value,
+        familyphone: numberFRef?.current?.value,
         worktime: worktimeRef?.current?.value,
         birthday: birthdayRef?.current?.value,
       };
@@ -133,7 +133,7 @@ export default function Doctors() {
         doctorData.region &&
         doctorData.district &&
         doctorData.education &&
-        doctorData.family &&
+        doctorData.familyphone &&
         doctorData.worktime &&
         editDoctorId
       ) {

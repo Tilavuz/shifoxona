@@ -5,6 +5,8 @@ import LoaderComp from "./components/loader/loader";
 
 // Pages
 import Home from "@/pages/home/home";
+const HistoryPatsient = lazy(() => import("./pages/history-patsient/history-patsient"))
+const Patsients = lazy(() => import("@/pages/patsient/patsient"));
 const HistoryDoctor = lazy(
   () => import("@/pages/history-doctor/history-doctor")
 );
@@ -69,6 +71,22 @@ export default function App() {
           element: (
             <Suspense fallback={<LoaderComp />}>
               <Doctors />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/patsients",
+          element: (
+            <Suspense fallback={<LoaderComp />}>
+              <Patsients />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/patsients/:id",
+          element: (
+            <Suspense fallback={<LoaderComp />}>
+              <HistoryPatsient />
             </Suspense>
           ),
         },

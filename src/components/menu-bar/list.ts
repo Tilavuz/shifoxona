@@ -22,5 +22,9 @@ export const list = [
   {
     link: "/doctors",
     title: "Doctors",
+  },
+  {
+    link: '/patsients',
+    title: 'Patsient'
   }
 ];
