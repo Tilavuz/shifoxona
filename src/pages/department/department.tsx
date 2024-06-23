@@ -24,7 +24,6 @@ import axios from "axios";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { useCookies } from "react-cookie";
-import { Link } from "react-router-dom";
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 export default function Department() {
@@ -32,7 +31,7 @@ export default function Department() {
   const departmentRef = useRef<HTMLInputElement>(null);
   const [departments, setDepartments] = useState<DepartmentInterface[]>([]);
   const editDepartmentRef = useRef<HTMLInputElement>(null);
-  const { isPending, loading } = useLoading()
+  const { isPending, loading } = useLoading();
 
   const getAllDepartment = useCallback(async () => {
     try {
@@ -82,11 +81,11 @@ export default function Department() {
 
   const editDepartment = async (id: string) => {
     try {
-      isPending(true)
+      isPending(true);
       const changeData = {
         _id: id,
-        title: editDepartmentRef?.current?.value
-      }
+        title: editDepartmentRef?.current?.value,
+      };
       await axios.put(`${apiUrl}department/`, changeData, {
         headers: {
           Authorization: `Bearer ${cookies?.token}`,
@@ -95,8 +94,8 @@ export default function Department() {
       getAllDepartment();
     } catch (err) {
       console.log(err);
-    }finally {
-      isPending(false)
+    } finally {
+      isPending(false);
     }
   };
 
@@ -126,7 +125,9 @@ export default function Department() {
                   className="mb-4"
                   placeholder="Department title"
                 />
-                <DialogClose><Button>Submit</Button></DialogClose>
+                <DialogClose>
+                  <Button>Submit</Button>
+                </DialogClose>
               </form>
             </DialogContent>
           </Dialog>
@@ -147,9 +148,7 @@ export default function Department() {
                     {i + 1}
                   </td>
                   <td className="border py-2 border-black text-center">
-                    <Link to={`${apiUrl}department/${department._id}`}>
-                      {department.title}
-                    </Link>
+                    {department.title}
                   </td>
                   <td className="border py-2 border-black text-center">
                     <Dialog>
@@ -162,14 +161,20 @@ export default function Department() {
                         <DialogHeader>
                           <DialogTitle>Edit department</DialogTitle>
                         </DialogHeader>
-                          <Input
-                            ref={editDepartmentRef}
-                            className="mb-4"
-                            placeholder="Department title"
-                            defaultValue={department?.title}
-                            disabled={loading}
-                          />
-                          <DialogClose><Button onClick={() => editDepartment(department._id)}>{loading ? 'loading' : 'Change'}</Button></DialogClose>
+                        <Input
+                          ref={editDepartmentRef}
+                          className="mb-4"
+                          placeholder="Department title"
+                          defaultValue={department?.title}
+                          disabled={loading}
+                        />
+                        <DialogClose>
+                          <Button
+                            onClick={() => editDepartment(department._id)}
+                          >
+                            {loading ? "loading" : "Change"}
+                          </Button>
+                        </DialogClose>
                       </DialogContent>
                     </Dialog>
                     <AlertDialog>

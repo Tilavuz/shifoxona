@@ -31,10 +31,10 @@ export default function Spec() {
   const [cookies] = useCookies();
   const specRef = useRef<HTMLInputElement>(null);
   const {specs, getAllSpec} = UseGetSpec()
-  const edtSprecRef = useRef<HTMLInputElement>(null);
+  const editSpecRef = useRef<HTMLInputElement>(null);
   const { isPending, loading } = useLoading();
 
-  const adSprec = async (e: FormEvent) => {
+  const addSprec = async (e: FormEvent) => {
     e.preventDefault();
     try {
       const title = specRef?.current?.value;
@@ -54,7 +54,7 @@ export default function Spec() {
     }
   };
 
-  const deeteSprec = async (id: string) => {
+  const deleteSpec = async (id: string) => {
     try {
       await axios.delete(`${apiUrl}spec/${id}`, {
         headers: {
@@ -67,12 +67,12 @@ export default function Spec() {
     }
   };
 
-  const edtSprec = async (id: string) => {
+  const editSpec = async (id: string) => {
     try {
       isPending(true);
       const changeData = {
         _id: id,
-        title: edtSprecRef?.current?.value,
+        title: editSpecRef?.current?.value,
       };
       await axios.put(`${apiUrl}spec/`, changeData, {
         headers: {
@@ -107,7 +107,7 @@ export default function Spec() {
               <DialogHeader>
                 <DialogTitle>Add spec</DialogTitle>
               </DialogHeader>
-              <form onSubmit={(e) => adSprec(e)}>
+              <form onSubmit={(e) => addSprec(e)}>
                 <Input
                   ref={specRef}
                   className="mb-4"
@@ -150,14 +150,14 @@ export default function Spec() {
                           <DialogTitle>Edit spec</DialogTitle>
                         </DialogHeader>
                         <Input
-                          ref={edtSprecRef}
+                          ref={editSpecRef}
                           className="mb-4"
                           placeholder="spec title"
                           defaultValue={spec?.title}
                           disabled={loading}
                         />
                         <DialogClose>
-                          <Button onClick={() => edtSprec(spec._id)}>
+                          <Button onClick={() => editSpec(spec._id)}>
                             {loading ? "loading" : "Change"}
                           </Button>
                         </DialogClose>
@@ -178,7 +178,7 @@ export default function Spec() {
                         <AlertDialogFooter>
                           <AlertDialogCancel>No</AlertDialogCancel>
                           <AlertDialogAction
-                            onClick={() => deeteSprec(spec._id)}
+                            onClick={() => deleteSpec(spec._id)}
                           >
                             Yes
                           </AlertDialogAction>

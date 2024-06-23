@@ -1,4 +1,5 @@
 export interface DoctorInterface {
+    _id: string;
     name: string;
     phone: string;
     spec: string;
