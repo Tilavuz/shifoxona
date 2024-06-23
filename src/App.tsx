@@ -5,7 +5,9 @@ import LoaderComp from "./components/loader/loader";
 
 // Pages
 import Home from "@/pages/home/home";
-const HistoryPatsient = lazy(() => import("./pages/history-patsient/history-patsient"))
+const Treatment = lazy(() => import("@/pages/treatment/treatment")) 
+const Service = lazy(() => import("@/pages/service/service")) 
+const HistoryPatsient = lazy(() => import("@/pages/history-patsient/history-patsient"))
 const Patsients = lazy(() => import("@/pages/patsient/patsient"));
 const HistoryDoctor = lazy(
   () => import("@/pages/history-doctor/history-doctor")
@@ -79,6 +81,22 @@ export default function App() {
           element: (
             <Suspense fallback={<LoaderComp />}>
               <Patsients />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/treatment",
+          element: (
+            <Suspense fallback={<LoaderComp />}>
+              <Treatment />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/service",
+          element: (
+            <Suspense fallback={<LoaderComp />}>
+              <Service />
             </Suspense>
           ),
         },
