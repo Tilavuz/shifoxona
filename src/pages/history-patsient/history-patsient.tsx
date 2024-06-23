@@ -123,7 +123,7 @@ export default function HistoryPatsient() {
         putData.doctor &&
         putData.date
       ) {
-        await axios.put(`${apiUrl}historypatsient/${id}`, putData, {
+        await axios.put(`${apiUrl}historypatsient/`, putData, {
           headers: {
             Authorization: `Bearer ${cookies?.token}`,
           },
